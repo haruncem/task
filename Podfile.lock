@@ -1,0 +1,30 @@
+PODS:
+  - ImageLoader (0.15.0)
+  - RxCocoa (6.2.0):
+    - RxRelay (= 6.2.0)
+    - RxSwift (= 6.2.0)
+  - RxRelay (6.2.0):
+    - RxSwift (= 6.2.0)
+  - RxSwift (6.2.0)
+
+DEPENDENCIES:
+  - ImageLoader
+  - RxCocoa
+  - RxSwift
+
+SPEC REPOS:
+  trunk:
+    - ImageLoader
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+
+SPEC CHECKSUMS:
+  ImageLoader: e0635d52020d64dc7687e3a3b14dc53212ac0442
+  RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
+  RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
+  RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
+
+PODFILE CHECKSUM: 392e13fce298a2ec6fbe09a0761f5d4433597a26
+
+COCOAPODS: 1.11.2
