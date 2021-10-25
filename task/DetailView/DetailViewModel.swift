@@ -47,7 +47,7 @@ class DetailViewModel {
 
         arrItems?.forEach({ (dict) in
             if let name = dict["name"] as? String{
-                let yearString = name.matches(for: "([0-9]{4})").first
+                let yearString = name.getMathching(for: "([0-9]{4})").first
                 let year = Int(yearString ?? "") ?? 0
                 let comic = Comic(name: name, year: year)
                 arrComic.append(comic)
@@ -62,8 +62,6 @@ class DetailViewModel {
         
         let _comics = BehaviorSubject<[Comic]>(value: Array(first10))
         self.comics = _comics.asObservable()
-        
-        print("aa")
         
     }
 

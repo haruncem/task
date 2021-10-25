@@ -22,7 +22,7 @@ class ComicCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func prepare(with name: String) {
+    func setupCell(with name: String) {
         lblName.text = name
     }
     

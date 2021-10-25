@@ -14,7 +14,7 @@ class CharacterViewModel {
     let thumbnail: Dictionary<String, Any>
     let comics: Dictionary<String, Any>
 
-    init(repository: Repository) {
+    init(repository: Character) {
         self.id = repository.id
         self.name = repository.fullName
         self.description = repository.description

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CryptoKit
 
 extension UITableView{
     func showLoadingMoreSpinner(){
@@ -19,7 +20,7 @@ extension UITableView{
 }
 
 extension String{
-    func matches(for regex: String) -> [String] {
+    func getMathching(for regex: String) -> [String] {
         do {
             let regex = try NSRegularExpression(pattern: regex)
             let results = regex.matches(in: self, range: NSRange(self.startIndex..., in: self))
@@ -30,5 +31,12 @@ extension String{
             print("invalid regex: \(error.localizedDescription)")
             return []
         }
+    }
+    
+    func md5() -> String {
+        let digest = Insecure.MD5.hash(data: self.data(using: .utf8) ?? Data())
+        return digest.map {
+            String(format: "%02hhx", $0)
+        }.joined()
     }
 }

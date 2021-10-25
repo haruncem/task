@@ -10,6 +10,7 @@
 		4BAB94F5EC4EDDFD651C9771 /* Pods_task.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFE9DE28930DF9BE74C32C4 /* Pods_task.framework */; };
 		D78EF1E8489EEA50B512D336 /* Pods_task_taskUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308D323253B040A5BE960132 /* Pods_task_taskUITests.framework */; };
 		EEFBFB8233D69C771B5DB513 /* Pods_taskTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBBCA769325E333DD9CC3F3 /* Pods_taskTests.framework */; };
+		FC8568512726976D00FA3650 /* m.png in Resources */ = {isa = PBXBuildFile; fileRef = FC8568502726976D00FA3650 /* m.png */; };
 		FC91331327233C1D008EFF10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC91331227233C1D008EFF10 /* AppDelegate.swift */; };
 		FC91331527233C1D008EFF10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC91331427233C1D008EFF10 /* SceneDelegate.swift */; };
 		FC91331727233C1D008EFF10 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC91331627233C1D008EFF10 /* CharacterListViewController.swift */; };
@@ -49,6 +50,9 @@
 		FCE9DC65272574CE00AB8F80 /* ComicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9DC64272574CE00AB8F80 /* ComicCell.swift */; };
 		FCE9DC66272574CE00AB8F80 /* ComicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9DC64272574CE00AB8F80 /* ComicCell.swift */; };
 		FCE9DC67272574CE00AB8F80 /* ComicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9DC64272574CE00AB8F80 /* ComicCell.swift */; };
+		FCE9DCA52725F11F00AB8F80 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FCE9DCA42725F11E00AB8F80 /* GoogleService-Info.plist */; };
+		FCE9DCA62725F11F00AB8F80 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FCE9DCA42725F11E00AB8F80 /* GoogleService-Info.plist */; };
+		FCE9DCA72725F11F00AB8F80 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FCE9DCA42725F11E00AB8F80 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +82,7 @@
 		C466C037818CE017440AFE96 /* Pods-taskTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-taskTests.debug.xcconfig"; path = "Target Support Files/Pods-taskTests/Pods-taskTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D279D86B277A5CC9C5F7719D /* Pods-task-taskUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-task-taskUITests.release.xcconfig"; path = "Target Support Files/Pods-task-taskUITests/Pods-task-taskUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D916998100322F4F7314AB27 /* Pods-task.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-task.release.xcconfig"; path = "Target Support Files/Pods-task/Pods-task.release.xcconfig"; sourceTree = "<group>"; };
+		FC8568502726976D00FA3650 /* m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m.png; sourceTree = "<group>"; };
 		FC91330F27233C1D008EFF10 /* task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = task.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC91331227233C1D008EFF10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC91331427233C1D008EFF10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +108,7 @@
 		FCE9DC502724B90D00AB8F80 /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
 		FCE9DC5D2725509800AB8F80 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FCE9DC64272574CE00AB8F80 /* ComicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCell.swift; sourceTree = "<group>"; };
+		FCE9DCA42725F11E00AB8F80 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,13 +192,15 @@
 				FC91331827233C1D008EFF10 /* Main.storyboard */,
 				FC91337627234C1D008EFF10 /* Service.swift */,
 				FCE9DC5D2725509800AB8F80 /* Extensions.swift */,
+				FC91336E27234991008EFF10 /* Strings.swift */,
 				FCE9DC792725B98400AB8F80 /* CharacterList */,
 				FCE9DC2A2724ABD500AB8F80 /* DetailView */,
 				FC91335E27233F1C008EFF10 /* Views */,
 				FC91331E27233C1F008EFF10 /* Assets.xcassets */,
+				FC8568502726976D00FA3650 /* m.png */,
 				FC91332027233C1F008EFF10 /* LaunchScreen.storyboard */,
-				FC91336E27234991008EFF10 /* Strings.swift */,
 				FC91332327233C1F008EFF10 /* Info.plist */,
+				FCE9DCA42725F11E00AB8F80 /* GoogleService-Info.plist */,
 				FC91331B27233C1D008EFF10 /* task.xcdatamodeld */,
 			);
 			path = task;
@@ -354,8 +362,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC91332227233C1F008EFF10 /* LaunchScreen.storyboard in Resources */,
+				FCE9DCA52725F11F00AB8F80 /* GoogleService-Info.plist in Resources */,
 				FC91331F27233C1F008EFF10 /* Assets.xcassets in Resources */,
 				FC91331A27233C1D008EFF10 /* Main.storyboard in Resources */,
+				FC8568512726976D00FA3650 /* m.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +373,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCE9DCA62725F11F00AB8F80 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +381,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCE9DCA72725F11F00AB8F80 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

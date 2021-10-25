@@ -8,13 +8,11 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import CryptoKit
 
 enum ServiceError: Error {
     case cannotParse
 }
 
-/// A service that knows how to perform requests for GitHub data.
 class Service {
 
     private let session: URLSession
@@ -23,72 +21,43 @@ class Service {
         self.session = session
     }
     
-    let limit = 30
-    var offset = 0
+    let listLimit = 30
+    var listOffset = 0
     
-    var size: Int = 0
-    
-    var allCharacters = [Repository]()
+    var allCharacters = [Character]()
 
-    /// - Parameter language: Language to filter by
-    /// - Returns: A list of most popular repositories filtered by langugage
-    func getMostPopularRepositories() -> Observable<[Repository]> {
-        let url = URL(string: "https://api.github.com/search/repositories?q=language:Python&sort=stars")!
-        return session.rx
-            .json(url: url)
-            .flatMap { json throws -> Observable<[Repository]> in
-                guard
-                    let json = json as? [String: Any],
-                    let itemsJSON = json["items"] as? [[String: Any]]
-                else { return Observable.error(ServiceError.cannotParse) }
+    func getCharacters(offset: Int) -> Observable<[Character]> {
 
-                let repositories = itemsJSON.compactMap(Repository.init)
-                return Observable.just(repositories)
-            }
-    }
-    
-    func getCharacters(offset: Int) -> Observable<[Repository]> {
-
-        print("*** getCharacters CALL ***")
-        
-        let publickey = "c9aada89dad0251a43b6ec7e8fe6d37c"
-        let privatekey = "afc2794f87b8cf9170c48622c8b54bf249e0a4c9"
         let ts = tsStringValue()
-        let stringToHash = String(format: "%@%@%@", ts, privatekey, publickey)
-        let hash = MD5(string: stringToHash)
-        let baseUrl = "https://gateway.marvel.com:443/v1/public/characters"
-//        let limit = 30
-        let link = String(format: "%@?limit=%d&offset=%d&ts=%@&apikey=%@&hash=%@", baseUrl, limit, self.offset, ts, publickey, hash)
+        let stringToHash = String(format: "%@%@%@", ts, Strings.marvelPrivatekey, Strings.marvelPublickey)
+        let hash = stringToHash.md5()
+        let link = String(format: "%@/characters?limit=%d&offset=%d&ts=%@&apikey=%@&hash=%@", Strings.marvelBaseUrl, listLimit, self.listOffset, ts, Strings.marvelPublickey, hash)
 //        var url = baseUrl +  + limit + '&ts=' + ts + '&apikey=' + publickey + '&hash=' + hash;
         
         let url = URL(string: link)!
         
         return session.rx
             .json(url: url)
-            .flatMap { json throws -> Observable<[Repository]> in
+            .flatMap { json throws -> Observable<[Character]> in
                 guard
                     let json = json as? [String: Any],
                     let data = json["data"] as? [String: Any],
                     let itemsJSON = data["results"] as? [[String: Any]]
                 else { return Observable.error(ServiceError.cannotParse) }
 
-                let characters = itemsJSON.compactMap(Repository.init)
+                let characters = itemsJSON.compactMap(Character.init)
                 self.allCharacters.append(contentsOf: characters)
-                self.size = self.allCharacters.count
-                self.offset += 30
+                self.listOffset += 30
                 return Observable.just(self.allCharacters)
             }
     }
     
     func getCharactersComics(characterId: Int) -> Observable<Dictionary<String, Any>> {
 
-        let publickey = "c9aada89dad0251a43b6ec7e8fe6d37c"
-        let privatekey = "afc2794f87b8cf9170c48622c8b54bf249e0a4c9"
         let ts = tsStringValue()
-        let stringToHash = String(format: "%@%@%@", ts, privatekey, publickey)
-        let hash = MD5(string: stringToHash)
-        let baseUrl = "https://gateway.marvel.com:443/v1/public/characters/\(characterId)/comics"
-        let link = String(format: "%@?ts=%@&apikey=%@&hash=%@", baseUrl, ts, publickey, hash)
+        let stringToHash = String(format: "%@%@%@", ts, Strings.marvelBaseUrl, Strings.marvelPrivatekey)
+        let hash = stringToHash.md5()
+        let link = String(format: "%@/characters/%d/comics?ts=%@&apikey=%@&hash=%@", Strings.marvelBaseUrl, characterId, ts, Strings.marvelPublickey, hash)
 
         let url = URL(string: link)!
         
@@ -110,19 +79,10 @@ class Service {
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSSSSS'Z'"
         return dateFormatter.string(from: Date())
     }
-    
-    
-    func MD5(string: String) -> String {
-        let digest = Insecure.MD5.hash(data: string.data(using: .utf8) ?? Data())
-
-        return digest.map {
-            String(format: "%02hhx", $0)
-        }.joined()
-    }
 
 }
 
-struct Repository {
+struct Character {
     let id: Int
     let fullName: String
     let description: String
@@ -136,30 +96,9 @@ struct Repository {
         self.thumbnail = thumbnail
         self.comics = comics
     }
-    
-//    "comics": {
-//              "available": 2,
-//              "collectionURI": "http://gateway.marvel.com/v1/public/characters/1011324/comics",
-//              "items": [
-//                {
-//                  "resourceURI": "http://gateway.marvel.com/v1/public/comics/21177",
-//                  "name": "Ultimate X-Men (2001) #94"
-//                },
-//                {
-//                  "resourceURI": "http://gateway.marvel.com/v1/public/comics/21326",
-//                  "name": "Ultimate X-Men (2001) #95"
-//                }
-//              ],
-//              "returned": 2
-//            },
 }
 
-struct Comic {
-    let name: String
-    let year: Int
-}
-
-extension Repository {
+extension Character {
     init?(from json: [String: Any]) {
         guard
             let id = json["id"] as? Int,
@@ -172,24 +111,25 @@ extension Repository {
         
         self.init(id: id, fullName: fullName, description: description, thumbnail: thumbnail, comics: comics)
     }
-    
-    
-    
-    
-    
 }
 
-extension Repository: Equatable {
-    static func == (lhs: Repository, rhs: Repository) -> Bool {
+extension Character: Equatable {
+    static func == (lhs: Character, rhs: Character) -> Bool {
         return lhs.fullName == rhs.fullName
             && lhs.description == rhs.description
     }
+}
+
+struct Comic {
+    let name: String
+    let year: Int
 }
 
 struct Thumbnail {
     let path: String
     let ext: String
 }
+
 extension Thumbnail {
     init?(from json: [String: Any]) {
         guard
@@ -199,45 +139,3 @@ extension Thumbnail {
         self.init(path: path, ext: ext)
     }
 }
-/*
-class Thumbnail: Codable {
-    let path: String?
-    let ext: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case path = "path"
-        case ext = "ext"
-    }
-
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        path = try values.decodeIfPresent(String.self, forKey: .path)
-        ext = try values.decodeIfPresent(String.self, forKey: .ext)
-    }
-}
-
-class Repository: Codable{
-    
-    let id: Int?
-    let fullName: String?
-    let description: String?
-    let thumbnail: Thumbnail?
-    
-    enum CodingKeys: String, CodingKey {
-
-        case id = "id"
-        case fullName = "name"
-        case description = "description"
-        case thumbnail = "thumbnail"
-        
-    }
-
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(Int.self, forKey: .id)
-        fullName = try values.decodeIfPresent(String.self, forKey: .fullName)
-        description = try values.decodeIfPresent(String.self, forKey: .description)
-        thumbnail = try values.decodeIfPresent(Thumbnail.self, forKey: .thumbnail)
-        
-    }
-*/

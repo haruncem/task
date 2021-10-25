@@ -10,6 +10,7 @@ target 'task' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'ImageLoader'
+  pod 'Firebase/Analytics'
 
   target 'taskTests' do
     inherit! :search_paths

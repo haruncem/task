@@ -19,19 +19,14 @@ class CharacterListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureTableView()
-        
         setupBindings()
-        refreshControl.sendActions(for: .valueChanged)
-        
+        refreshControl.sendActions(for: .valueChanged) // force reload
     }
 
     private func configureTableView() {
         tableView.rowHeight = 96
         tableView.showLoadingMoreSpinner()
-//        tableView.insertSubview(refreshControl, at: 0)
-//        tableView.refreshControl = refreshControl
     }
     
     private func setupBindings() {
@@ -39,7 +34,7 @@ class CharacterListViewController: UIViewController {
         tableView.rx
             .willDisplayCell
             .subscribe(onNext: { cell, indexPath in
-                let size = self.viewModel.githubService.size
+                let size = self.viewModel.githubService.allCharacters.count
                 if indexPath.row == size-1{
                     print("bottom  reached")
                     self.tableView.showLoadingMoreSpinner()
@@ -66,7 +61,7 @@ class CharacterListViewController: UIViewController {
         viewModel.characters
             .observe(on: MainScheduler.instance)
             .do(onNext: { [weak self] _ in self?.refreshControl.endRefreshing() })
-            .bind(to: tableView.rx.items(cellIdentifier: "characterCell", cellType: CharacterCell.self)) {(_, char, cell) in
+            .bind(to: tableView.rx.items(cellIdentifier: Strings.characterCellIdentifier, cellType: CharacterCell.self)) {(_, char, cell) in
                 cell.setupCell(character: char)
             }
             .disposed(by: disposeBag)

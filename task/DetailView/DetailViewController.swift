@@ -51,15 +51,9 @@ class DetailViewController: UIViewController, StoryboardInitializable {
         }).bind(to: imgView.rx.image)
             .disposed(by: disposeBag)
         
-//        viewModel.charactersComics.observe(on: MainScheduler.instance).do { (dict) in
-//            print("asd")
-//        } onDispose: {
-//            print("")
-//        }
-
         viewModel.comics
             .observe(on: MainScheduler.instance)
-            .bind(to: tv.rx.items(cellIdentifier: "comicCell", cellType: ComicCell.self)) { (_, language, cell) in
+            .bind(to: tv.rx.items(cellIdentifier: Strings.comicCellIdentifier, cellType: ComicCell.self)) { (_, language, cell) in
                 cell.lblName?.text = language.name
                 cell.selectionStyle = .none
             }
